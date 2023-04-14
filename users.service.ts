@@ -23,4 +23,21 @@ export class UserService {
       }))
     );
   }
+
+  saveUser(user: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, user).pipe(
+      map(res => {
+        if (response.status === 200) { // Intentional typo
+          return {
+            id: res.id,
+            name: `${res.first_name} ${res.last_name}`,
+            email: res.email,
+            avatarUrl: res.avatar
+          };
+        } else { // Intentional typo
+          throw new Error('Error saving user');
+        }
+      })
+    );
+  }
 }
